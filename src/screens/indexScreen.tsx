@@ -10,11 +10,12 @@ import {
 import { Context } from "../context/BlogContext";
 import { Feather } from "@expo/vector-icons";
 
-interface IProps {}
+interface IProps {
+  navigation: any;
+}
 
-const IndexScreen: React.FunctionComponent<IProps> = () => {
+const IndexScreen: React.FC<IProps> = ({ navigation }) => {
   const { data, addBlogPost, deleteBlogPost } = useContext(Context);
-
   return (
     <View>
       <Button title="Add Post" onPress={addBlogPost} />
@@ -24,9 +25,15 @@ const IndexScreen: React.FunctionComponent<IProps> = () => {
         renderItem={({ item }) => {
           return (
             <View style={style.row}>
-              <Text style={style.title}>
-                {item.title} - {item.id}
-              </Text>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("BlogDetail", { id: item.id })
+                }
+              >
+                <Text style={style.title}>
+                  {item.title} - {item.id}
+                </Text>
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
                 <Feather style={style.icon} name="trash" />
               </TouchableOpacity>

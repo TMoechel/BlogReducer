@@ -22,10 +22,9 @@ const blogReducer = (state: IBlog[], action: IBlogAction): IBlog[] => {
       const newState = [...state, blogPost];
       return newState;
     case "DELETE_BLOG":
-      const filteredState = state.filter((item) => {
+      return state.filter((item) => {
         return item.id !== action.payload.id;
       });
-      return filteredState;
     default:
       return state;
   }
